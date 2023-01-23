@@ -27,6 +27,7 @@ jobs:
         with:
           build-args: |
             GHC_GIT_REF=${{ inputs.GHC_GIT_REF }}
+            BUILD_ARGS=-j1
           tags: |
             brandonchinn178/ghc-js-backend:latest
             brandonchinn178/ghc-js-backend:${{ inputs.GHC_GIT_REF }}

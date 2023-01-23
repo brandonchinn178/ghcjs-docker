@@ -21,3 +21,5 @@ Note: currently does not work: https://gitlab.haskell.org/ghc/ghc/-/issues/22814
 
 GHC_GIT_REF='<commit>' ./build.sh
 ```
+
+See `build.sh` for other available arguments that can be set.

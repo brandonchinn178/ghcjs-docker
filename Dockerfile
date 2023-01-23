@@ -1,6 +1,3 @@
-# build with:
-#   docker build -t ghc-js-backend - < ormolu-live/ghcjs.Dockerfile
-
 # --------------- Base image with ghcup --------------- #
 
 FROM ubuntu:22.10 AS base
@@ -38,7 +35,8 @@ ARG GHC_GIT_REF=master
 RUN git checkout $GHC_GIT_REF
 RUN git submodule update --init --recursive
 RUN ./boot && emconfigure ./configure --target=js-unknown-ghcjs
-RUN ./hadrian/build -j12 --flavour=quick --bignum=native --docs=none
+ARG BUILD_ARGS=-j
+RUN ./hadrian/build --flavour=quick --bignum=native --docs=none $BUILD_ARGS
 
 # --------------- Runtime image with ghcup + GHCJS installed --------------- #
 
