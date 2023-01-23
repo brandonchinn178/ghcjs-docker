@@ -44,7 +44,7 @@ RUN ./hadrian/build -j12 --flavour=quick --bignum=native --docs=none
 
 FROM base
 
-COPY --from=builder /opt/ghc/_build /opt/ghc/_build
+COPY --from=builder /opt/ghc /opt/ghc
 
 RUN mkdir -p /usr/lib/ghcjs/bin/
 RUN ln -sf /opt/ghc/_build/stage1/bin/js-unknown-ghcjs-ghc /usr/lib/ghcjs/bin/ghc
