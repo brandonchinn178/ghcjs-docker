@@ -22,6 +22,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
+          context: '{{defaultContext}}:ghc-js-backend'
           build-args: |
             GHC_GIT_REF=${{ inputs.GHC_GIT_REF }}
             BUILD_ARGS=-j1
