@@ -26,7 +26,6 @@ jobs:
             GHC_GIT_REF=${{ inputs.GHC_GIT_REF }}
             BUILD_ARGS=-j1
           tags: |
-            brandonchinn178/ghc-js-backend:latest
-            brandonchinn178/ghc-js-backend:${{ inputs.GHC_GIT_REF }}
+            brandonchinn178/ghc-js-backend:${{ inputs.GHC_GIT_REF }}-amd64
           platforms: linux/amd64
           push: true
