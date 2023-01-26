@@ -12,8 +12,6 @@ docker run --rm -it -v $PWD:/src brandonchinn178/ghc-js-backend /src/HelloWorld.
 ./HelloWorld
 ```
 
-Note: currently does not work: https://gitlab.haskell.org/ghc/ghc/-/issues/22814
-
 ## Build
 
 ```bash

@@ -34,7 +34,7 @@ WORKDIR /opt/ghc
 ARG GHC_GIT_REF=master
 RUN git checkout $GHC_GIT_REF
 RUN git submodule update --init --recursive
-RUN ./boot && emconfigure ./configure --target=js-unknown-ghcjs
+RUN ./boot && emconfigure ./configure CC=/usr/bin/emcc LD=/usr/bin/emcc --target=js-unknown-ghcjs
 ARG BUILD_ARGS=-j
 RUN ./hadrian/build --flavour=quick --bignum=native --docs=none $BUILD_ARGS
 
