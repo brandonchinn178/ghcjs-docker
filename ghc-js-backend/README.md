@@ -1,6 +1,6 @@
 # GHC with JS backend
 
-This repo contains a Dockerfile for building a Docker image with GHC built with the new Javascript backend.
+This directory contains a Dockerfile for building a Docker image with GHC built with the new Javascript backend.
 
 ## Usage
 
@@ -8,7 +8,7 @@ This repo contains a Dockerfile for building a Docker image with GHC built with 
 docker pull brandonchinn178/ghc-js-backend
 
 echo 'main = putStrLn "Hello world!"' > HelloWorld.hs
-docker run --rm -it -v $PWD:/src brandonchinn178/ghc-js-backend /src/HelloWorld.hs
+docker run --rm -v $PWD:/src brandonchinn178/ghc-js-backend /src/HelloWorld.hs
 ./HelloWorld
 ```
 

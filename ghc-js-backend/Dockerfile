@@ -7,7 +7,7 @@ RUN apt-get update \
     && apt-get install -y \
         build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5 \
         libnuma-dev
-RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | BOOTSTRAP_HASKELL_NONINTERACTIVE=1 sh
+RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | BOOTSTRAP_HASKELL_NONINTERACTIVE=1 BOOTSTRAP_HASKELL_VERBOSE=1 sh
 ENV PATH=/root/.ghcup/bin:$PATH
 
 # --------------- Build GHC with JS backend --------------- #
