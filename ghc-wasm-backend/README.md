@@ -20,8 +20,6 @@ The image also contains `wasm32-wasi-cabal` on PATH, which is configured to buil
 ## Build
 
 ```bash
-./build.sh
-
 GHC_GIT_REF='<commit>' ./build.sh
 ```
 

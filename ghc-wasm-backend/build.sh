@@ -10,7 +10,9 @@ fi
 # space separated args to add to the `hadrian/build` command
 : ${BUILD_ARGS:=-j}
 
-docker build \
+docker buildx build \
+    --platform linux/amd64,linux/arm64 \
+    --push \
     -t brandonchinn178/ghc-wasm-backend:${GHC_GIT_REF} \
     --build-arg GHC_GIT_REF \
     --build-arg BUILD_ARGS \
