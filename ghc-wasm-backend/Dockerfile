@@ -1,17 +1,16 @@
-FROM ubuntu:22.10
+FROM haskell:9.4.4-slim
 
-ENV LANG=C.UTF-8
+# ENV LANG=C.UTF-8
 
-# install GHC for bootstrapping
-RUN apt-get update \
-    && apt-get install -y \
-        build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5 \
-        libnuma-dev
-RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | \
-    BOOTSTRAP_HASKELL_NONINTERACTIVE=1 \
-    BOOTSTRAP_HASKELL_VERBOSE=1 \
-    sh
-ENV PATH=/root/.ghcup/bin:$PATH
+# # install GHC for bootstrapping
+# RUN apt-get update \
+#     && apt-get install -y \
+#         build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5 \
+#         libnuma-dev
+# RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | \
+#     BOOTSTRAP_HASKELL_NONINTERACTIVE=1 \
+#     sh
+# ENV PATH=/root/.ghcup/bin:$PATH
 
 # set up ~/.ghc-wasm
 RUN mkdir -p ~/.ghc-wasm
@@ -83,6 +82,7 @@ RUN apt-get update \
     && apt-get install -y \
         alex \
         autoconf \
+        build-essential \
         happy \
         python3 \
     && true
@@ -91,10 +91,10 @@ RUN apt-get update \
 WORKDIR /opt
 RUN apt-get update \
     && apt-get install -y git \
-    && git clone https://gitlab.haskell.org/ghc/ghc.git
+    && git clone https://gitlab.haskell.org/ghc/ghc.git ghc-wasm
 
 # init repo
-WORKDIR /opt/ghc
+WORKDIR /opt/ghc-wasm
 ARG GHC_GIT_REF=master
 RUN git checkout $GHC_GIT_REF
 RUN git submodule update --init --recursive
@@ -105,7 +105,7 @@ ARG BUILD_ARGS=-j
 RUN ./hadrian/build --flavour=quick --bignum=native --docs=none $BUILD_ARGS
 
 WORKDIR /
-RUN ln -sf /opt/ghc/_build/stage1/bin/wasm32-wasi-ghc /usr/local/bin/
+RUN ln -sf /opt/ghc-wasm/_build/stage1/bin/wasm32-wasi-ghc /usr/local/bin/
 COPY wasm32-wasi-cabal.sh /usr/local/bin/wasm32-wasi-cabal
 RUN chmod +x /usr/local/bin/wasm32-wasi-cabal
 ENTRYPOINT ["wasm32-wasi-ghc"]
