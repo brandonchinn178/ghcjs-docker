@@ -17,7 +17,8 @@ ENV PATH=/root/.ghcup/bin:$PATH
 RUN mkdir -p ~/.ghc-wasm
 COPY env.sh /root/.ghc-wasm/env
 
-# install wasi-sdk
+# install latest wasi-sdk
+# can't get pinned version because gitlab doesn't guarantee artifact retention
 ARG TARGETARCH
 RUN mkdir -p /tmp/wasi-sdk && cd /tmp/wasi-sdk \
     && apt-get update && apt-get install -y curl jq unzip \
@@ -47,7 +48,7 @@ RUN mkdir -p /tmp/wasi-sdk && cd /tmp/wasi-sdk \
     && curl -L "https://gitlab.haskell.org/${ARTIFACT_URL}" -o archive.zip \
     && unzip archive.zip \
     && mkdir -p ~/.ghc-wasm/wasi-sdk \
-    && tar xzf dist/wasi-sdk-16-linux.tar.gz -C ~/.ghc-wasm/wasi-sdk --strip-components=1 \
+    && tar xzf dist/wasi-sdk-17-linux.tar.gz -C ~/.ghc-wasm/wasi-sdk --strip-components=1 \
     && rm -rf /tmp/wasi-sdk
 
 # install libffi-wasm
